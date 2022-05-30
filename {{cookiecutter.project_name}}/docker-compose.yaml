@@ -1,14 +1,12 @@
 version: "3.4"
 
 services:
-  {% if cookiecutter.with_wasser %}
-  wasser:
+  {% if cookiecutter.with_wasser %}wasser:
     image: {{cookiecutter.wasser.docker_image}}
     ports:
       - 80:{{cookiecutter.wasser.port}}
     labels:
-      platform: wasser
-  {% endif %}
+      platform: wasser{% endif %}
   daten:
     image: jhnnsrs/daten:prod
     restart: always
