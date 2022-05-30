@@ -1,7 +1,7 @@
 version: "3.4"
 
 services:
-  {% if cookiecutter.with_wasser == true %}
+  {% if cookiecutter.with_wasser %}
   wasser:
     image: {{cookiecutter.wasser.docker_image}}
     ports:
