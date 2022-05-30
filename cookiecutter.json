@@ -2,7 +2,7 @@
     "project_name": "johannes",
     "wasser": {
         "docker_image": "johannes/wasser",
-        "port": 80,
+        "port": 80
     },
-    "with_wasser": true,
+    "with_wasser": true
 }
