@@ -1,0 +1,146 @@
+version: "3.4"
+
+services:
+  {% if cookiecutter.with_wasser == true %}
+  wasser:
+    image: {{cookiecutter.wasser.docker_image}}
+    ports:
+      - 80:{{cookiecutter.wasser.port}}
+    labels:
+      platform: wasser
+  {% endif %}
+  daten:
+    image: jhnnsrs/daten:prod
+    restart: always
+    environment:
+      POSTGRES_MULTIPLE_DATABASES: herredb,arkitektdb,elementsdb,mikrodb,portdb,flussdb,faktsdb,nextfaktsdb
+      POSTGRES_PASSWORD: hello_django
+      POSTGRES_USER: hello_django
+    labels:
+      platform: daten
+  fakts:
+    image: jhnnsrs/fakts:prod
+    command: bash run-debug.sh
+    volumes:
+      - ./fakts-server:/workspace
+      - ./configs/fakts.yaml:/workspace/config.yaml
+    ports:
+      - 8010:8050
+    labels:
+      platform: fakts
+    depends_on:
+      - daten
+  herre:
+    image: jhnnsrs/herre:prod
+    command: bash run-debug.sh
+    volumes:
+      - ./herre-server:/workspace
+      - ./configs/herre.yaml:/workspace/config.yaml
+    ports:
+      - 8000:8000
+    labels:
+      platform: herre
+    depends_on:
+      - daten
+  arkitekt:
+    image: jhnnsrs/arkitekt:prod
+    command: bash runnew.sh
+    volumes:
+      - ./arkitekt-server:/workspace
+      - ./configs/arkitekt.yaml:/workspace/config.yaml
+    ports:
+      - 8090:8090
+    labels:
+      platform: arkitekt
+    depends_on:
+      - redis
+      - mister
+      - daten
+  mikro:
+    image: jhnnsrs/mikro:prod
+    ports:
+      - 8080:8080
+    command: bash run-debug.sh
+    volumes:
+      - ./mikro-server:/workspace
+      - ./configs/elements.yaml:/workspace/config.yaml
+    labels:
+      platform: mikro
+    depends_on:
+      - redis
+      - daten
+      - minio
+  minio:
+    image: jhnnsrs/datalayer:prod
+    command: server /export
+    ports:
+      - 9000:9000
+    environment:
+      MINIO_ACCESS_KEY: weak_access_key
+      MINIO_SECRET_KEY: weak_secret_key
+    labels:
+      platform: elements.storage
+  mister:
+    image: jhnnsrs/mister:fancy
+    hostname: localhost
+    command: rabbitmq-server
+    ports:
+      - 5672:5672
+      - 15672:15672
+    labels:
+      platform: arkitekt.broker
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    labels:
+      platform: channel
+  fluss:
+    image: jhnnsrs/fluss:prod
+    command: bash run-debug.sh
+    volumes:
+      - ./fluss-server:/workspace
+      - ./configs/fluss.yaml:/workspace/config.yaml
+    ports:
+      - 8070:8070
+    depends_on:
+      - daten
+    labels:
+      platform: fluss
+  port:
+    image: jhnnsrs/port:prod
+    command: bash run-debug.sh
+    volumes:
+      - ./port-server:/workspace
+      - ./configs/port.yaml:/workspace/config.yaml
+    ports:
+      - 8050:8050
+    depends_on:
+      - daten
+    labels:
+      platform: port
+  hub:
+    image: jhnnsrs/hub:latest
+    hostname: hub
+    command: jupyterhub
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./configs/jupyterhub.yaml:/srv/jupyterhub/config.yaml
+    environment:
+      DOCKER_NETWORK_NAME: hub
+    ports:
+      - "8040:8040"
+      - "8081:8081"
+    depends_on:
+      - herre
+    labels:
+      platform: port
+
+volumes:
+  jupyterhub_data:
+
+networks:
+  default:
+    external:
+      name: dev
+
