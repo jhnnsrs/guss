@@ -12,7 +12,7 @@ auth:
 server:
   debug: {{cookiecutter.herre.debug}}
   hosts:
-    {% for host in cookiecutter.herre.hosts%}- "{{host}}"
+    {% for host in cookiecutter.herre.hosts %}- "{{host}}"
     {% endfor %}
 
 scopes:
