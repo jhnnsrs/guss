@@ -4,5 +4,16 @@
         "docker_image": "johannes/wasser",
         "port": 80
     },
-    "with_wasser": true
+    "with_wasser": true,
+    "herre": {
+        "docker_image": "johannes/herre",
+        "port": 8080,
+        "debug": "True",
+        "hosts": [
+            "*",
+            "localhost"
+        ],
+        "activation_days": 7,
+        "token_expire_seconds": 30000
+    }
 }
