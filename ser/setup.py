@@ -21,7 +21,7 @@ class Setup(BaseModel):
     postgres_password: str = Field(default_factory=generate_random_password)
     postgres_user: str = "arkitekt"
 
-    advertised_host: str = ["localhost"]
+    hosts: List[str] = ["localhost"]
 
     dev_services: Dict[str, str] = Field(default_factory=list)
     services: List[str]
@@ -39,7 +39,11 @@ class Setup(BaseModel):
             if app.tenant == values["admin_username"]:
                 raise ValueError("App should not be hold by admin account")
 
+            if app.tenant is None:
+                app.tenant = available_users[0]
+
             if app.tenant not in available_users:
+
                 raise ValueError(f"{app} has unknown tenant available are {available_users}")
 
         return values

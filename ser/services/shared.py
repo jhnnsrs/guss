@@ -21,7 +21,7 @@ class SharedServiceFactory(ServiceFactory):
 
         s = []
         if self.setup.common_db:
-            s += [DockerService(name="daten", image="jhnnsrs/daten:prod", environment={"POSTGRES_MULTIPLE_DATABASES": "herredb,arkitektdb,elementsdb,mikrodb,portdb,flussdb,faktsdb,nextfaktsdb",
+            s += [DockerService(name="daten", image="jhnnsrs/daten:prod", environment={"POSTGRES_MULTIPLE_DATABASES": "herre_db,arkitekt_db,mikro_db,port_db,fluss_db",
                 "POSTGRES_PASSWORD": self.setup.postgres_password,
                 "POSTGRES_USER": self.setup.postgres_user
             })]

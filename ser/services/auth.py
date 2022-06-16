@@ -1,7 +1,7 @@
 
 
 from enum import Enum
-from typing import List
+from typing import List, Optional
 from pydantic import BaseModel, Field
 import pydantic
 from ser.secrets import generate_random_client_id, generate_random_client_secret
@@ -30,7 +30,7 @@ class App(BaseModel):
     client_id: str = Field(default_factory=generate_random_client_id)
     client_secret: str = Field(default_factory=generate_random_client_secret)
     redirect_uris: List[str] = []
-    tenant: str
+    tenant: Optional[str]
 
 
 class AdminUser(BaseModel):

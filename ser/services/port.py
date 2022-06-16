@@ -42,4 +42,4 @@ class PortServiceFactory(ServiceFactory):
         return f
 
     def create_docker_services(self) -> List[DockerService]:
-        return [DockerService(name="fluss", image="jhnnsrs/fluss:prod", ports=["8070:8070"], volumes=[create_dev_mount("port", self.setup),create_config_mount("port"), ],  depends_on=["redis","daten"])]
+        return [DockerService(name="port", image="jhnnsrs/port:prod", ports=["8050:8050"], volumes=[create_dev_mount("port", self.setup),create_config_mount("port"), ],  depends_on=["redis","daten"])]

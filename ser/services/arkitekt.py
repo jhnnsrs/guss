@@ -53,10 +53,10 @@ class ArkitektServiceFactory(ServiceFactory):
     def create_fakt(self, host):
 
         a = ArkitektFakt(
-            agent=AgentFakt(endpoint_url=f"ws://{host}:{self.c.port}/agi"),
+            agent=AgentFakt(endpoint_url=f"ws://{host}:{self.c.port}/agi/"),
             endpoint_url=f"http://{host}:{self.c.port}/graphql",
             healthz=f"http://{host}:{self.c.port}/ht",
-            postman=PostmanFakt(endpoint_url=f"ws://{host}:{self.c.port}/agi"),
+            postman=PostmanFakt(endpoint_url=f"ws://{host}:{self.c.port}/watchi/"),
             secure=False,
             ws_endpoint_url=f"ws://{host}:{self.c.port}/graphql"
         )

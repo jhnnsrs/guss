@@ -13,6 +13,7 @@ RUN poetry config virtualenvs.create false && poetry install
 
 RUN mkdir /init
 
-COPY create.py /app/create.py
+COPY main.py /app/main.py
+COPY ser /app/ser
 
-CMD ["python", "create.py"]
+CMD ["python", "main.py"]

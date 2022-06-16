@@ -66,14 +66,14 @@ class MikroServiceFactory(ServiceFactory):
             secure=False,
             ws_endpoint_url=f"ws://{host}:{self.c.port}/graphql",
             datalayer=Datalayer(
-                endpoint_url=f"http://{host}:9000/ht" if host != "mikro" else "http://minio:9000",
+                endpoint_url=f"http://{host}:9000" if host != "mikro" else "http://minio:9000",
             )
         )
 
         return f
 
     def create_docker_services(self) -> List[DockerService]:
-        return  [DockerService(name="mikro", image="jhnnsrs/mikro:prod", ports=["8080:8080"] , volumes=[create_dev_mount("mikro", self.setup),create_config_mount("mikro"), ],  depends_on=["redis","daten","minio"]), DockerService(name="minio", image="minio/minio", ports=["9000:9000"], volumes=["data:/data"], environment={"MINIO_ACCESS_KEY": self.c.minio.access_key, "MINIO_SECRET_KEY": self.c.minio.secret_key})]
+        return  [DockerService(name="mikro", image="jhnnsrs/mikro:prod", ports=["8080:8080"] , volumes=[create_dev_mount("mikro", self.setup),create_config_mount("mikro"), ],  depends_on=["redis","daten","minio"]), DockerService(name="minio", image="jhnnsrs/datalayer:prod", ports=["9000:9000"], volumes=["data:/data"], environment={"MINIO_ACCESS_KEY": self.c.minio.access_key, "MINIO_SECRET_KEY": self.c.minio.secret_key})]
 
     def create_docker_volumes(self):
         return [DockerVolume.from_local(name="data", path="data")]

@@ -65,7 +65,7 @@ class Baker:
         self.to_yaml(f"init/fakts/internal.yaml", wrapped)
 
 
-        for host in self.setup.advertised_host:
+        for host in self.setup.hosts:
             fakts = { service_name: factory.create_fakt(host) for service_name, factory in self.factories.items()}
 
             wrapped = {"info": {"name": host, "host": host}, "services": {key: value.dict() for key,value in fakts.items() if value is not None}}
@@ -81,8 +81,9 @@ class Baker:
             config = factory.create_dirs()
 
     def generate_dev(self):
-        if len(self.setup.dev_services) > 0:
+        if os.path.exists("init/dev"):
             shutil.rmtree("init/dev")
+        if len(self.setup.dev_services) > 0:
             os.makedirs("init/dev", exist_ok=True)
 
             for key, value in self.setup.dev_services.items():
