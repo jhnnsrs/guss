@@ -16,7 +16,7 @@ apps:
   - read
   - write
   tenant: sdfsdf
-  token: 8d63375d238c457b59ed4b3be6b605b227f88c43f0f76c768dea129a5a1aabc16b56da9e5037d8f8a9890d995d3a7d7d51c59963b58f6c5a1962c549490ec5231888ec2e85f819993f7ec352c56ac607a424c15ac4d0e5f6ab04b5b5eba7adcb467a7f3c
+  token: 09bc6bdec889cad035bc2bb5db341650f05207d31e5b1a99886133b18cb3a3db7aab8852f48905ef66444ddff256481d53f857629ff7f6bc3802462d74d93fc1654822656e82dfc342a63695217da1f9168ba7fc4b01f5df54d698491d61990dd82ccbb8
   version: latest
 - client_id: soinfosienfsfosefghsegfisnefoisneofinsef
   client_secret: soinfoefsefssdfienfoisnefoisneofinsef
@@ -30,7 +30,7 @@ apps:
   - read
   - write
   tenant: sdfsdf
-  token: 0626c577d2747c02056950e65594d27dcf707d4cc2b0f0169328b1a83b9f8b719d414abf967d37dc6e12efa044bf88e5afe59fd18b702e02409c80a47bae72b19c6d7b9f4b37967b51f428516ed726b37e20412739a6bb72933563d78d50a0c417ac8c61
+  token: 2e9de92e138bcedb4a0b6e65ccf64db0e6a79ed0e99cf2a2794909878b1d89464b23beed3324e6c41288ee49a6990d850ad5f9f50e0af053400afc6759844e9af1abe66b20a6b8cbc909112e6a26e22ae9ce2e1c04a749f7e2b251b13bef5ab9f9ecc375
   version: latest
 - client_id: soinfosienfoisnseghsggegefoisneofinsef
   client_secret: soinfosienesfseffoisnefoisneofinsef
@@ -44,7 +44,7 @@ apps:
   - read
   - write
   tenant: sdfsdf
-  token: 559d9090becc8eeddfd6c96eca487d9d18c6324df2f860602e76d322832d3375705f681e4a3a0a9ab3546c0d5c7181ac3144d77860ce5c699e6b34512ff7c4be2033b399af03f1045f7a0f0817955d500c75d865823ead1ef55c590f26587b3200de0417
+  token: 081ba6917aa1073cbcb128f12ed7ea9e9d124e177a07399e4bcd583bd5157af6cb400a5db0d6fa61b9f7c8015e5a0268b1fe872d997aa93b0c8a79934fffa0b7fce0604daac330c1b119a6c20a82e9ff0ea42804641da360fc1f2c8ab7de168030f208cc
   version: latest
 - client_id: soinfosienfoaswdasdasdisnefoisneofinsef
   client_secret: soinfosiengeesegegfoisnefoisneofinsef
@@ -58,7 +58,7 @@ apps:
   - read
   - write
   tenant: sdfsdf
-  token: 9c4b7740659bc07b2f5807b9987cfd832376df02185bde1c177676422b83ec8193da59985e5e87580ea502cab04898f82e33b62821e33ebbb841c75abea4b4d9d521da3aef6f82f6d873b91671d34766d4e7a8c1c81b23fe79f907ab11dad37669c07094
+  token: a002b762cbe1c125cbb6ee836eae2de8f7a4dd466b0154ab0f3a2fa0b44c5cb520b15ce032d44d9ecfdbfac7c993effdf860ee16ab1eaa67f3bfec9d7d59a9d0cfe566468b75dd0d9a5c2ef3159a5418fbad76217433054621e4ceedd97ad406e74e6d7d
   version: latest
 - client_id: soinfosienfoissgsegsegtbsynefoisneofinsef
   client_secret: soinfosienfoissdfsdfnefoisneofinsef
@@ -72,11 +72,12 @@ apps:
   - read
   - write
   tenant: sdfsdf
-  token: 6f7e37f06eaf2bbe4a6bed0088385b65e3ff67782e3a16f780187d756cc4095b9cd114d3be826a9820b74f2ec14d9961a0263607bf8f9d5bf9886aa771b6aca19450ce245702adf4ddad938c36c08ac4848f7103506c1399805197b23600312bdf04c704
+  token: 70dbbdcdc301bba9eacf91d28d60e8d90dd36c6a2786ece5cb7974db373b5c3326830bba737b49c7065b91be5f093ab0b4573c07fce327e57ec7e0b70a6f20c09d02e5710a4a128c915302a2fe068b90e3963f69d5dab4993bb3d6beb22e89f23786be79
   version: latest
 groups:
 - description: My standard team
   name: myteam
+multiplatform: false
 name: defaultddd
 network: null
 services:
@@ -84,7 +85,6 @@ services:
   description: The pubsub
   dev: null
   host: redis
-  image: redis:latest
   interface: redis
   long: This allows services to publish and subscribe to events
   name: redis
@@ -94,7 +94,6 @@ services:
   description: The orkestrator
   dev: null
   host: orkestrator
-  image: jhnnsrs/orkestrator:prodx
   interface: orkestrator
   long: This allows orkestrator to publish and subscribe to events
   name: orkestrator
@@ -106,21 +105,19 @@ services:
   description: The database
   dev: null
   host: db
-  image: jhnnsrs/daten:prod
   interface: db
   long: Storing your meta data
   name: postgres
-  password: 931c363136b7e94dfeacf30ad9a24d3e
+  password: afeabc19e89aa6e2b33ead511169990d
   port: 5432
   requires: []
-  username: thirstyjadedrever
+  username: craggymaroondodo
 - buckets: []
   dashboard_port: 9001
   dependencies: {}
   description: The storage
   dev: null
   host: minio
-  image: minio/minio:RELEASE.2023-02-10T18-48-39Z
   init_image: jhnnsrs/init:prod
   interface: minio
   long: Storing your images and files
@@ -129,15 +126,14 @@ services:
   public_dashboard_port: 9001
   public_port: 9000
   requires: []
-  root_password: 8f9ca27293b4aff4f704797fe9b2d885
-  root_username: gamyolivineant
+  root_password: 24e8a3b4b5a46e9a2951f7956c269187
+  root_username: wiggycyanneanderthal
   users: []
   with_dashboard: false
 - dependencies: {}
   description: The backbone
   dev: null
   host: rabbitmq
-  image: jhnnsrs/mister:fancy
   interface: rabbitmq
   long: Taking care of the reliable communication between the apps
   name: rabbitmq
@@ -150,7 +146,6 @@ services:
   description: The core
   dev: null
   host: lok
-  image: jhnnsrs/lok:prod
   interface: lok
   issuer: lok
   key_type: RS256
@@ -159,62 +154,62 @@ services:
   port: 8000
   private_key: '-----BEGIN PRIVATE KEY-----
 
-    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
+    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
 
-    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
+    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
 
-    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
+    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
 
-    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
+    s9rBn0c9kPXRGrffGgl2P4z9Ni9tAbnM1bKUeDoGNQ2XLrQqPQ3t9I6gtRbQnId6
 
-    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
+    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
 
-    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
+    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
 
-    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
+    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
 
-    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
+    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
 
-    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
+    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
 
-    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
+    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
 
-    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
+    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
 
-    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
+    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
 
-    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
+    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
 
-    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
+    jbI6WXPkOHGTlgK5gDyPiY3wo+oMkKRkAT6umrywgxD81Fp0z/XUoVULaBjV4s+7
 
-    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
+    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
 
-    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
+    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
 
-    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
+    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
 
-    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
+    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
 
-    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
+    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
 
-    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
+    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
 
-    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
+    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
 
-    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
+    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
 
-    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
+    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
 
-    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
+    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
 
-    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
+    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
 
-    8v3wAlTQhQOuwl+dUIuQ8amn
+    Asif+g9RY1j1lgS27ebnAIk=
 
     -----END PRIVATE KEY-----
 
     '
-  public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9nqTglCcGm+QcLWbSKnVMK7/S6g8pbtLHrKeAgDzfaEglXn6zJNBdehCE/yjgEz6LvY88C6ecEN24ZxdgpdCMTK9HLlUw/Yi+EcqQJnYpFIGdKqmLxIxAq8mpJx7dWVyvrTB1IfbNkJzizcJ2ssbQ/E7JW6qaHKZD/R5ao6vyz/dUeZcQUr2COSN1jm+VvxTf6kfnZcs7Nh3RTtSv2GKw0ppzEJvU9xFqn59E8UdyBu63pFpeg0nZ3kCbQKRAKbQxQKFXuj6YfoDShPgPLMqmeVilh/WDgxJskiMHmJyQAGmVoIfbm0bgE63PtdT4ocGkYeppxf2Op7301qdb6d29
+  public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9OsQIRdZqqY5pbLDliNO48rHXfrsrj6x93HABOrlE5Gk64mqh+YPk59+VQiVqSdT4YB/vB2+lzQyj50oSa+Y2K6Rk7lgQoCBDzLw+xjhbcd32UISpQ+AeLw4pYwa24Qpr+xhYb01Ajy/Bs9rBn0c9kPXRGrffGgl2P4z9Ni9tAbnM1bKUeDoGNQ2XLrQqPQ3t9I6gtRbQnId6SBju939nktDAH12wdkqPgddMVKj/2brjhqN7IGXJcZXdttONidWljMmDNgKyj8Ln8Rjc4Cfc0jDevxAeHOsj6cH7/vLglEXRqXYclCBAL/M8guV9J8kkVr1BYuQRjw20wKWXGwz1
   public_port: 8000
   required_buckets:
   - name: lokmedia
@@ -241,7 +236,6 @@ services:
   description: The datalayer
   dev: null
   host: mikro
-  image: jhnnsrs/mikro:prod
   interface: mikro
   long: Enables you to store, organize and monitor microscopy data
   name: mikro
@@ -262,7 +256,6 @@ services:
   description: The broker
   dev: null
   host: rekuest
-  image: jhnnsrs/rekuest:prod
   interface: rekuest
   long: Allows you to call enabled bioimage apps from the platform
   name: rekuest
@@ -296,7 +289,6 @@ services:
   description: The virtualizer
   dev: null
   host: port
-  image: jhnnsrs/port:prod
   interface: port
   long: Enables one click install of github repos as internal apps
   name: port

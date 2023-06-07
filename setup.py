@@ -1,18 +1,51 @@
 from typing import Dict, List
 from pydantic import BaseModel, EmailStr, Field, root_validator
 from typing import Optional
-from .secrets import generate_random_password, public_key, private_key, generate_random_username, generate_random_client_id, generate_random_client_secret, generate_random_token
+from mysecrets import generate_random_password, public_key, private_key, generate_random_username, generate_random_client_id, generate_random_client_secret, generate_random_token
 from typing import Any, Literal, Union
 import os
 import itertools
 import shutil
 import yaml 
-from .utils import remove_none, guard_empty
+from utils import remove_none, guard_empty, create_config_mount, create_dev_mount, create_fakts_mount, create_docker_mount
 import json
 from django.core.management.utils import get_random_secret_key
-from ser.utils import create_config_mount, create_dev_mount, create_fakts_mount, create_docker_mount
 import pydantic
 from enum import Enum
+
+
+MINIO_MULTIPLATFORM_IMAGE = "minio/minio:RELEASE.2023-02-10T18-48-39Z"
+MINIO_IMAGE = "minio/minio:RELEASE.2023-02-10T18-48-39Z"
+
+RABBITMQ_IMAGE = "rabbitmq:3-management"
+RABBITMQ_MULTIPLATFORM_IMAGE = "rabbitmq:3-management"
+
+REDIS_IMAGE = "redis:latest"
+REDIS_MULTIPLATFORM_IMAGE = "redis:latest"
+
+REKUEST_IMAGE = "jhnnsrs/rekuest:prod"
+REKUEST_MULTIPLATFORM_IMAGE = "jhnnsrs/rekuest:prodx"
+
+LOK_IMAGE = "jhnnsrs/lok:prod"
+LOK_MULTIPLATFORM_IMAGE = "jhnnsrs/lok:prodx"
+
+MIKRO_IMAGE = "jhnnsrs/mikro:prod"
+MIKRO_MULTIPLATFORM_IMAGE = "jhnnsrs/mikro:prodx"
+
+DATEN_IMAGE = "jhnnsrs/daten:prod"
+DATEN_MULTIPLATFORM_IMAGE = "jhnnsrs/daten:prodx"
+
+ORKESTRATOR_IMAGE = "jhnnsrs/orkestrator:prod"
+ORKESTRATOR_MULTIPLATFORM_IMAGE = "jhnnsrs/orkestrator:prodx"
+
+FLUSS_IMAGE = "jhnnsrs/fluss:prod"
+FLUSS_MULTIPLATFORM_IMAGE = "jhnnsrs/fluss:prodx"
+
+PORT_IMAGE = "jhnnsrs/port:prod"
+PORT_MULTIPLATFORM_IMAGE = "jhnnsrs/port:prodx"
+
+
+
 
 class DockerCompose(BaseModel):
     version: str = "3.7"
@@ -20,6 +53,7 @@ class DockerCompose(BaseModel):
     volumes: Optional[Dict]
     networks: Optional[Dict]
     secrets: Optional[Dict]
+
 
 
 
@@ -147,7 +181,6 @@ class BaseService(BaseModel):
     interface: str
     description: str
     long: str
-    image: Optional[str]
     requires: List[str]
     dev: Optional[bool]
 
@@ -272,7 +305,7 @@ class PostgresService(GivingService):
         return [
             DockerService(
                 name="db", 
-                image=self.image, 
+                image=DATEN_MULTIPLATFORM_IMAGE if setup.multiplatform else DATEN_IMAGE,
                 volumes=volumes, 
                 environment={
                     "POSTGRES_USER": self.username,
@@ -319,7 +352,7 @@ class RabbitMQService(GivingService):
         return [
             DockerService(
                 name=self.host, 
-                image=self.image, 
+                image=RABBITMQ_MULTIPLATFORM_IMAGE if setup.multiplatform else RABBITMQ_IMAGE, 
                 command=command,
                 ports=[], 
                 volumes=[],  
@@ -346,7 +379,7 @@ class RedisService(GivingService):
         return [
             DockerService(
                 name=self.interface, 
-                image=self.image, 
+                image=REDIS_MULTIPLATFORM_IMAGE if setup.multiplatform else REDIS_IMAGE, 
                 ports=[], 
                 volumes=[],  
                 depends_on=[],
@@ -366,7 +399,7 @@ class OrkestratorService(GivingService):
         return [
             DockerService(
                 name=self.interface, 
-                image=self.image, 
+                image=ORKESTRATOR_MULTIPLATFORM_IMAGE if setup.multiplatform else ORKESTRATOR_IMAGE, 
                 ports=ports, 
                 volumes=[],  
                 depends_on=[],
@@ -458,7 +491,7 @@ class MinioService(GivingService):
         return [
             DockerService(
                 name=self.interface, 
-                image=self.image, 
+                image=MINIO_MULTIPLATFORM_IMAGE if setup.multiplatform else MINIO_IMAGE, 
                 command=command,
                 ports=ports, 
                 environment={
@@ -623,7 +656,7 @@ class LokService(GivingService, BucketNeedingService):
         return [
             DockerService(
                 name="lok", 
-                image=self.image, 
+                image=LOK_MULTIPLATFORM_IMAGE if setup.multiplatform else LOK_IMAGE, 
                 ports=ports, 
                 volumes=volumes,  
                 depends_on=["redis","db"],
@@ -703,7 +736,7 @@ class RekuestService(BaseService):
         return [
             DockerService(
                 name="rekuest", 
-                image=self.image, 
+                image=REKUEST_MULTIPLATFORM_IMAGE if setup.multiplatform else REKUEST_IMAGE, 
                 ports=ports, 
                 volumes=volumes,  
                 depends_on=["redis","db", "rabbitmq"],
@@ -848,12 +881,20 @@ class PortService(BaseService):
         return [
             DockerService(
                 name=self.host, 
-                image=self.image, 
+                image=PORT_MULTIPLATFORM_IMAGE if setup.multiplatform else PORT_IMAGE, 
                 ports=ports, 
                 volumes=volumes,  
                 network=[self.generate_network_name(setup)],
                 depends_on=["lok","db", "redis"],
-                labels=[f"arkitekt.{setup.name}.service=port"])
+                labels=[f"arkitekt.{setup.name}.service=port"]),
+            DockerService(
+                name=self.host + "-worker", 
+                image=PORT_MULTIPLATFORM_IMAGE if setup.multiplatform else PORT_IMAGE, 
+                volumes=volumes, 
+                command="bash run-worker.sh", 
+                network=[self.generate_network_name(setup)],
+                depends_on=["lok","db", "redis"],
+                labels=[f"arkitekt.{setup.name}.service=port-worker"])
         ]
     
 
@@ -927,7 +968,7 @@ class FlussService(BucketNeedingService):
         return [
             DockerService(
                 name="fluss", 
-                image=self.image, 
+                image=FLUSS_MULTIPLATFORM_IMAGE if setup.multiplatform else FLUSS_IMAGE,  
                 ports=ports, 
                 volumes=volumes,  
                 depends_on=["redis","db"],
@@ -1003,7 +1044,7 @@ class MikroService(BaseService):
         return [
             DockerService(
                 name="mikro", 
-                image=self.image, 
+                image=MIKRO_MULTIPLATFORM_IMAGE if setup.multiplatform else MIKRO_IMAGE, 
                 ports=ports, 
                 volumes=volumes,  
                 depends_on=["redis","db", "minio"],
@@ -1021,6 +1062,7 @@ Service = Union[RekuestService, HubService, MinioService, MikroService, RedisSer
 
 
 class Setup(BaseModel):
+    multiplatform: bool = False
     name: str
     admin_username: str
     admin_email: EmailStr
@@ -1100,7 +1142,7 @@ class Setup(BaseModel):
 
         x = yaml.dump(remove_none(json.loads(json.dumps(wrapped))))
         raw_fakts =[service.create_raw_fakt(self) for service in self.services if service.create_raw_fakt(self) is not None]
-        print(raw_fakts)
+
         for t in raw_fakts:
            x += t
 

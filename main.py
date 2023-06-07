@@ -1,6 +1,6 @@
 import yaml
 import json
-from ser.setup import Setup
+from setup import Setup
 
 
 
@@ -14,6 +14,8 @@ if __name__ == "__main__":
 
     setup = Setup(**extended_config)
 
+
+    print("Validating")
     with open("init/validated.yaml", "w") as f:
         yaml.safe_dump(json.loads(setup.json()), f)
 
