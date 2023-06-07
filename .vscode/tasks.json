@@ -14,5 +14,30 @@
       "type": "shell",
       "command": "docker build -t jhnnsrs/guss:prod ."
     },
+    {
+      "label": "BuildX Guss",
+      "type": "shell",
+      "command": "docker buildx build -t jhnnsrs/guss:prodx --platform linux/arm64/v8,linux/amd64 --push ."
+    },
+    {
+      "label": "Run Test",
+      "type": "shell",
+      "command": "docker run --rm -v ./test:/app/init jhnnsrs/guss:prod"
+    },
+    {
+      "label": "RunX Test",
+      "type": "shell",
+      "command": "docker run --rm -v ./test:/app/init jhnnsrs/guss:prodx"
+    },
+    {
+      "label": "Push",
+      "type": "shell",
+      "command": "docker push jhnnsrs/guss:prod"
+    },
+    {
+      "label": "PushX",
+      "type": "shell",
+      "command": "docker push jhnnsrs/guss:prodx"
+    },
   ]
 }

@@ -1,0 +1,219 @@
+name: defaultddd
+admin_username: werwer
+admin_password: sdfsdf
+admin_email: werwer@sdfsd.de
+attention: true
+apps:
+  - name: orkestrator
+    identifier: github.io.jhnnsrs.orkestrator
+    version: latest
+    description: The interface
+    long: Orkestrator is the default interface for the platform, enabling you to
+      visualize and control your data and apps
+    image: https://cdn.sstatic.net/Img/teams/teams-illo-free-sidebar-promo.svg?v=47faa659a05e
+    requires:
+      - lok
+      - rekuest
+      - mikro
+    client_id: snfoinosinefsef
+    client_secret: 9noinfpuisenfpsiuenfpiosenfiusef
+    redirect_uris:
+      - http://localhost:8090
+      - http://localhost:6789/callback
+      - http://localhost:6789
+    client_type: public
+    grant_type: authorization-code
+    scopes:
+      - read
+      - write
+  - name: doks
+    identifier: github.io.jhnnsrs.doks
+    version: latest
+    description: The documentation
+    long: This allows you to play around with your own data on the developer
+      documentation. This app will not be able to modify your data
+    image: https://cdn.sstatic.net/Img/teams/teams-illo-free-sidebar-promo.svg?v=47faa659a05e
+    requires:
+      - lok
+      - mikro
+    client_id: soinfosienfsfosefghsegfisnefoisneofinsef
+    client_secret: soinfoefsefssdfienfoisnefoisneofinsef
+    redirect_uris:
+      - http://localhost:8090
+    client_type: public
+    grant_type: authorization-code
+    scopes:
+      - read
+      - write
+  - name: MikroJ
+    identifier: github.io.jhnnsrs.mikroj
+    version: latest
+    description: The Workhorse
+    long: Enables support for ImageJ and its macros
+    image: https://cdn.sstatic.net/Img/teams/teams-illo-free-sidebar-promo.svg?v=47faa659a05e
+    requires:
+      - lok
+      - rekuest
+      - mikro
+    download: https://github.com/jhnnsrs/mikroj
+    client_id: soinfosienfoisnseghsggegefoisneofinsef
+    client_secret: soinfosienesfseffoisnefoisneofinsef
+    redirect_uris:
+      - http://localhost:8090
+    client_type: public
+    grant_type: authorization-code
+    scopes:
+      - read
+      - write
+  - name: MikroManager
+    identifier: github.io.jhnnsrs.mikromanager
+    version: latest
+    description: The mikroscope
+    long: Enables support for Micro manager, a microscope control software
+    image: https://cdn.sstatic.net/Img/teams/teams-illo-free-sidebar-promo.svg?v=47faa659a05e
+    requires:
+      - lok
+      - rekuest
+      - mikro
+    download: https://github.com/jhnnsrs/mikroj
+    client_id: soinfosienfoaswdasdasdisnefoisneofinsef
+    client_secret: soinfosiengeesegegfoisnefoisneofinsef
+    redirect_uris:
+      - http://localhost:8090
+    client_type: public
+    grant_type: authorization-code
+    scopes:
+      - read
+      - write
+  - name: napari
+    identifier: github.io.jhnnsrs.mikro-napari
+    version: latest
+    description: The viewer
+    long: Napari is a python based image viewer that is used by many bioimage
+      researchers
+    image: http://localhost:8090/static/images/arkitekt.png
+    requires:
+      - lok
+      - rekuest
+    download: https://github.com/jhnnsrs/mikro-napari
+    client_id: soinfosienfoissgsegsegtbsynefoisneofinsef
+    client_secret: soinfosienfoissdfsdfnefoisneofinsef
+    redirect_uris:
+      - http://localhost:8090
+    client_type: public
+    grant_type: authorization-code
+    scopes:
+      - read
+      - write
+services:
+  - name: redis
+    interface: redis
+    description: The pubsub
+    long: This allows services to publish and subscribe to events
+    image: redis:latest
+    requires: []
+    is_backend: true
+    extras: {}
+  - name: orkestrator
+    interface: orkestrator
+    description: The orkestrator
+    long: This allows orkestrator to publish and subscribe to events
+    image: jhnnsrs/orkestrator:prodx
+    requires: []
+    is_backend: true
+    extras: {}
+  - name: postgres
+    interface: db
+    description: The database
+    long: Storing your meta data
+    image: jhnnsrs/daten:prod
+    requires: []
+    is_backend: true
+    extras: {}
+  - name: minio
+    interface: minio
+    description: The storage
+    long: Storing your images and files
+    image: minio/minio:RELEASE.2023-02-10T18-48-39Z
+    requires: []
+    is_backend: true
+    extras: {}
+  - name: rabbitmq
+    interface: rabbitmq
+    description: The backbone
+    long: Taking care of the reliable communication between the apps
+    image: jhnnsrs/mister:fancy
+    requires: []
+    is_backend: true
+    extras: {}
+  - name: lok
+    interface: lok
+    description: The core
+    long: This includes authorization, authentificaiton, config management, and more
+    image: jhnnsrs/lok:prod
+    requires:
+      - redis
+      - db
+      - minio
+    extras: {}
+  - name: mikro
+    interface: mikro
+    description: The datalayer
+    long: Enables you to store, organize and monitor microscopy data
+    image: jhnnsrs/mikro:prod
+    requires:
+      - redis
+      - lok
+      - db
+      - minio
+    extras: {}
+  - name: rekuest
+    interface: rekuest
+    description: The broker
+    long: Allows you to call enabled bioimage apps from the platform
+    image: jhnnsrs/rekuest:prod
+    requires:
+      - redis
+      - rabbitmq
+      - lok
+      - db
+    extras: {}
+  - name: fluss
+    interface: fluss
+    description: The designer
+    long: Allows you to design universal workflows spanning multiple apps
+    image: jhnnsrs/fluss:prod
+    requires:
+      - redis
+      - lok
+      - db
+      - minio
+    extras: {}
+  - name: port
+    interface: port
+    description: The virtualizer
+    long: Enables one click install of github repos as internal apps
+    image: jhnnsrs/port:prod
+    requires:
+      - redis
+      - lok
+      - db
+      - minio
+    extras: {}
+app_path: /home/jhnnsrs/Desktop/rrr
+groups:
+  - name: myteam
+    description: My standard team
+users:
+  - username: sdfsdf
+    name: ""
+    first_time_password: ""
+    email: sdfsdf@sdfs.de
+    groups:
+      - myteam
+    password: sdfsdf
+scale:
+  value: dev
+  label: Dev
+  icon: "👩‍🔧"
+  description: Arkitekt is in dev mode (you can't use this in production)

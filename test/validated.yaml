@@ -1,0 +1,320 @@
+admin_email: werwer@sdfsd.de
+admin_password: sdfsdf
+admin_username: werwer
+apps:
+- client_id: snfoinosinefsef
+  client_secret: 9noinfpuisenfpsiuenfpiosenfiusef
+  client_type: public
+  grant_type: authorization-code
+  identifier: github.io.jhnnsrs.orkestrator
+  name: orkestrator
+  redirect_uris:
+  - http://localhost:8090
+  - http://localhost:6789/callback
+  - http://localhost:6789
+  scopes:
+  - read
+  - write
+  tenant: sdfsdf
+  token: 8d63375d238c457b59ed4b3be6b605b227f88c43f0f76c768dea129a5a1aabc16b56da9e5037d8f8a9890d995d3a7d7d51c59963b58f6c5a1962c549490ec5231888ec2e85f819993f7ec352c56ac607a424c15ac4d0e5f6ab04b5b5eba7adcb467a7f3c
+  version: latest
+- client_id: soinfosienfsfosefghsegfisnefoisneofinsef
+  client_secret: soinfoefsefssdfienfoisnefoisneofinsef
+  client_type: public
+  grant_type: authorization-code
+  identifier: github.io.jhnnsrs.doks
+  name: doks
+  redirect_uris:
+  - http://localhost:8090
+  scopes:
+  - read
+  - write
+  tenant: sdfsdf
+  token: 0626c577d2747c02056950e65594d27dcf707d4cc2b0f0169328b1a83b9f8b719d414abf967d37dc6e12efa044bf88e5afe59fd18b702e02409c80a47bae72b19c6d7b9f4b37967b51f428516ed726b37e20412739a6bb72933563d78d50a0c417ac8c61
+  version: latest
+- client_id: soinfosienfoisnseghsggegefoisneofinsef
+  client_secret: soinfosienesfseffoisnefoisneofinsef
+  client_type: public
+  grant_type: authorization-code
+  identifier: github.io.jhnnsrs.mikroj
+  name: MikroJ
+  redirect_uris:
+  - http://localhost:8090
+  scopes:
+  - read
+  - write
+  tenant: sdfsdf
+  token: 559d9090becc8eeddfd6c96eca487d9d18c6324df2f860602e76d322832d3375705f681e4a3a0a9ab3546c0d5c7181ac3144d77860ce5c699e6b34512ff7c4be2033b399af03f1045f7a0f0817955d500c75d865823ead1ef55c590f26587b3200de0417
+  version: latest
+- client_id: soinfosienfoaswdasdasdisnefoisneofinsef
+  client_secret: soinfosiengeesegegfoisnefoisneofinsef
+  client_type: public
+  grant_type: authorization-code
+  identifier: github.io.jhnnsrs.mikromanager
+  name: MikroManager
+  redirect_uris:
+  - http://localhost:8090
+  scopes:
+  - read
+  - write
+  tenant: sdfsdf
+  token: 9c4b7740659bc07b2f5807b9987cfd832376df02185bde1c177676422b83ec8193da59985e5e87580ea502cab04898f82e33b62821e33ebbb841c75abea4b4d9d521da3aef6f82f6d873b91671d34766d4e7a8c1c81b23fe79f907ab11dad37669c07094
+  version: latest
+- client_id: soinfosienfoissgsegsegtbsynefoisneofinsef
+  client_secret: soinfosienfoissdfsdfnefoisneofinsef
+  client_type: public
+  grant_type: authorization-code
+  identifier: github.io.jhnnsrs.mikro-napari
+  name: napari
+  redirect_uris:
+  - http://localhost:8090
+  scopes:
+  - read
+  - write
+  tenant: sdfsdf
+  token: 6f7e37f06eaf2bbe4a6bed0088385b65e3ff67782e3a16f780187d756cc4095b9cd114d3be826a9820b74f2ec14d9961a0263607bf8f9d5bf9886aa771b6aca19450ce245702adf4ddad938c36c08ac4848f7103506c1399805197b23600312bdf04c704
+  version: latest
+groups:
+- description: My standard team
+  name: myteam
+name: defaultddd
+network: null
+services:
+- dependencies: {}
+  description: The pubsub
+  dev: null
+  host: redis
+  image: redis:latest
+  interface: redis
+  long: This allows services to publish and subscribe to events
+  name: redis
+  port: 6379
+  requires: []
+- dependencies: {}
+  description: The orkestrator
+  dev: null
+  host: orkestrator
+  image: jhnnsrs/orkestrator:prodx
+  interface: orkestrator
+  long: This allows orkestrator to publish and subscribe to events
+  name: orkestrator
+  port: 80
+  public_port: 6789
+  requires: []
+- databases: []
+  dependencies: {}
+  description: The database
+  dev: null
+  host: db
+  image: jhnnsrs/daten:prod
+  interface: db
+  long: Storing your meta data
+  name: postgres
+  password: 931c363136b7e94dfeacf30ad9a24d3e
+  port: 5432
+  requires: []
+  username: thirstyjadedrever
+- buckets: []
+  dashboard_port: 9001
+  dependencies: {}
+  description: The storage
+  dev: null
+  host: minio
+  image: minio/minio:RELEASE.2023-02-10T18-48-39Z
+  init_image: jhnnsrs/init:prod
+  interface: minio
+  long: Storing your images and files
+  name: minio
+  port: 9000
+  public_dashboard_port: 9001
+  public_port: 9000
+  requires: []
+  root_password: 8f9ca27293b4aff4f704797fe9b2d885
+  root_username: gamyolivineant
+  users: []
+  with_dashboard: false
+- dependencies: {}
+  description: The backbone
+  dev: null
+  host: rabbitmq
+  image: jhnnsrs/mister:fancy
+  interface: rabbitmq
+  long: Taking care of the reliable communication between the apps
+  name: rabbitmq
+  password: guest
+  port: 5672
+  requires: []
+  username: guest
+- activation_days: 7
+  dependencies: {}
+  description: The core
+  dev: null
+  host: lok
+  image: jhnnsrs/lok:prod
+  interface: lok
+  issuer: lok
+  key_type: RS256
+  long: This includes authorization, authentificaiton, config management, and more
+  name: lok
+  port: 8000
+  private_key: '-----BEGIN PRIVATE KEY-----
+
+    MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC9nqTglCcGm+Qc
+
+    LWbSKnVMK7/S6g8pbtLHrKeAgDzfaEglXn6zJNBdehCE/yjgEz6LvY88C6ecEN24
+
+    ZxdgpdCMTK9HLlUw/Yi+EcqQJnYpFIGdKqmLxIxAq8mpJx7dWVyvrTB1IfbNkJzi
+
+    zcJ2ssbQ/E7JW6qaHKZD/R5ao6vyz/dUeZcQUr2COSN1jm+VvxTf6kfnZcs7Nh3R
+
+    TtSv2GKw0ppzEJvU9xFqn59E8UdyBu63pFpeg0nZ3kCbQKRAKbQxQKFXuj6YfoDS
+
+    hPgPLMqmeVilh/WDgxJskiMHmJyQAGmVoIfbm0bgE63PtdT4ocGkYeppxf2Op730
+
+    1qdb6d29AgMBAAECggEAC8fT7hetG5hdHXrBe/QsVm1dHRE7wOnfpPrc2PInzN92
+
+    Eku1IdzWlglKvU5Er6IN36g/5vJT2UPbRgBpFFWWo0Q8G0BfvHCFIJAvsJ8kPy77
+
+    wIHjrEk92b3gO0t5+8dBcNWGpRznlKzmKBBEXt0UshB5tgq3isEoMmpwnNZHVlKF
+
+    w/40M/3Ygc8u6112TbQZqHY15+Xg8GDgaBrFJgTEeTZLkB9W55WcTsKWUAUc661T
+
+    E5VUq9YxBJ3NMYEsM7s1jhp/yrl4BpXO9rcswmjU1fPcAry4U4tGNwxlNWCWde86
+
+    EotH0JVywtP3PxnYz0KUPEPGw7aGy5eWEh0X/rwL9wKBgQDNzhJQFwR/ChbYUTGe
+
+    OmTlz+jApcAZ48FltQITzDddVFXBkajMFbot+0RP7hvycHZba1GO98MUN6tewXMP
+
+    3FUTtZGeWbJbcpwf33Up3cCzOQGJno9HH8lyvL808a3m/izt0NpKZjdBV64sH/QD
+
+    1w5otMWRCqlvnLFBMOhRdkaflwKBgQDr3gGyV1bl83i4xMLkVZeGqO/efdqCERbV
+
+    xS5yIWYc9CiVWHxddedK23Bi1RRs3KtX/cy9imZjy4uRnjGMss0fVYCXI/sz1ZB5
+
+    Md9+MJFWfX9fs/RTUEghDU97Al8SckmdNHvK9K4o4KOjpveDKSr4+Sq1C/uijkwW
+
+    wgQ3wVtXywKBgQDGXZnJGGZ9DHx4g8oPeLlHyN3O0fQXAC+omI8oBe5XRrJhoMPR
+
+    8h9Bsq5lXFwTkdKCyy4RXz3ofr/u1QbSgsx98sQonMwM2KsjDX8gm1zhYlDZFLuF
+
+    El5Y+RRTM58qxlMH5gaBL4SStrBqV2IbUW3R/mtvIZeuvJkc/MbvvdDUgQKBgQDi
+
+    l7Upj5576xre5qgUk+WuCD3okR+KNMCrPXMRUeS3jBgw4YEYiFxbHdUqHWox6wzw
+
+    y3IV5Q/Yb4L1sfQIJv3ITGvsxzRc556Tz8XVhPMbFBV563edUlL47cCde/m5zvHJ
+
+    hNIoeEeYHbcXUSAXcUVHSpgstgZYdDvE4T8MEUWfYQKBgEiAgbaQ2ocrxxxZa6cu
+
+    4zA6EEzA2O3K2PRmEILfB/RBEizeJ6CWhhk8z/ZBCuZ8RvzovVGZMNAAe0at72Ny
+
+    odsjrVBDbAfoDo+fH/dt0ufDA1ua/P/8RdsoZ1/wBoHrS85TQmWgjeb9CurjvJ5C
+
+    8v3wAlTQhQOuwl+dUIuQ8amn
+
+    -----END PRIVATE KEY-----
+
+    '
+  public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9nqTglCcGm+QcLWbSKnVMK7/S6g8pbtLHrKeAgDzfaEglXn6zJNBdehCE/yjgEz6LvY88C6ecEN24ZxdgpdCMTK9HLlUw/Yi+EcqQJnYpFIGdKqmLxIxAq8mpJx7dWVyvrTB1IfbNkJzizcJ2ssbQ/E7JW6qaHKZD/R5ao6vyz/dUeZcQUr2COSN1jm+VvxTf6kfnZcs7Nh3RTtSv2GKw0ppzEJvU9xFqn59E8UdyBu63pFpeg0nZ3kCbQKRAKbQxQKFXuj6YfoDShPgPLMqmeVilh/WDgxJskiMHmJyQAGmVoIfbm0bgE63PtdT4ocGkYeppxf2Op7301qdb6d29
+  public_port: 8000
+  required_buckets:
+  - name: lokmedia
+  required_policies:
+  - readwrite
+  requires:
+  - redis
+  - db
+  - minio
+  scopes:
+    can_assign: Can Assign Nodes
+    can_create: Can Create Nodes
+    can_create_identifier: Can create new identifier for the platform
+    can_forward_bounce: Can reserve and assign to Nodes mimicking other Users (only
+      backend and admin)
+    can_provide: Can Provide Nodes
+    can_template: Can Template Nodes
+    introspection: Introspect the Token scope
+    provider: Can act as a provider
+    read: Reading all of your Data
+    read_starred: Reading all of your shared Data
+  token_expire_seconds: 604800
+- dependencies: {}
+  description: The datalayer
+  dev: null
+  host: mikro
+  image: jhnnsrs/mikro:prod
+  interface: mikro
+  long: Enables you to store, organize and monitor microscopy data
+  name: mikro
+  port: 8080
+  public_port: 8080
+  required_buckets:
+  - name: zarr
+  - name: parquet
+  - name: mikromedia
+  required_policies:
+  - readwrite
+  requires:
+  - redis
+  - lok
+  - db
+  - minio
+- dependencies: {}
+  description: The broker
+  dev: null
+  host: rekuest
+  image: jhnnsrs/rekuest:prod
+  interface: rekuest
+  long: Allows you to call enabled bioimage apps from the platform
+  name: rekuest
+  port: 8090
+  public_port: 8090
+  requires:
+  - redis
+  - rabbitmq
+  - lok
+  - db
+- dependencies: {}
+  description: The designer
+  dev: null
+  host: fluss
+  image: jhnnsrs/fluss:prod
+  interface: fluss
+  long: Allows you to design universal workflows spanning multiple apps
+  name: fluss
+  port: 8070
+  public_port: 8070
+  required_buckets:
+  - name: flussmedia
+  required_policies:
+  - readwrite
+  requires:
+  - redis
+  - lok
+  - db
+  - minio
+- dependencies: {}
+  description: The virtualizer
+  dev: null
+  host: port
+  image: jhnnsrs/port:prod
+  interface: port
+  long: Enables one click install of github repos as internal apps
+  name: port
+  network_name: null
+  port: 8050
+  public_port: 8050
+  required_buckets:
+  - name: portmedia
+  required_policies:
+  - readwrite
+  requires:
+  - redis
+  - lok
+  - db
+  - minio
+users:
+- email: sdfsdf@sdfs.de
+  groups:
+  - myteam
+  password: sdfsdf
+  username: sdfsdf

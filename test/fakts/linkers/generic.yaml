@@ -1,0 +1,6 @@
+filters:
+- method: host_is_not
+  value: unallowed
+name: Generic Linker
+priority: 0
+template: generic
